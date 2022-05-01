@@ -1,21 +1,27 @@
-@import "../../theme/theme";
+@import "../../theme/index.scss";
 
 $animation-duration: 0.4s;
 
 @mixin label-active() {
   font-size: 0.75rem;
   transform: translateY(0rem);
+  font-weight: 700;
 }
 
 .FormField {
   display: block;
   width: 100%;
+  text-align: left;
 
   &.FormField_isActive {
     .FormFieldControl {
       &::after {
-        border-bottom: 2px solid $primary;
+        border: 1px solid $primary;
         transform: scaleX(150);
+      }
+      .FormFieldInput {
+        border: 1px solid $primary;
+        border-bottom: 0;
       }
     }
     .FormFieldLabel {
@@ -38,8 +44,10 @@ $animation-duration: 0.4s;
   margin: 0;
   transition: all $animation-duration;
   width: 100%;
-  transform: translateY(1.2rem);
+  transform: translateY(1.7rem);
   z-index: 0;
+  color: $primary;
+  padding-left: 0.5rem;
 }
 .FormFieldControl {
   overflow: hidden;
@@ -48,6 +56,7 @@ $animation-duration: 0.4s;
 
   &::after {
     border-bottom: 2px solid $primary;
+    border-radius: 4px;
     bottom: 0;
     content: "";
     display: block;
@@ -64,16 +73,18 @@ $animation-duration: 0.4s;
   appearance: none;
   background: transparent;
   border: 0;
-  border-bottom: 1px solid #999;
+  border: 1px solid $primary-dark;
   color: #333;
   display: block;
   font-size: 1.1rem;
   outline: 0;
-  padding: 0.1rem 0.5rem 0.1rem;
+  padding: 0.5rem;
   width: 100%;
   z-index: 1;
   position: relative;
   color: $primary;
+  border-radius: 4px;
+
   /* Chrome, Safari, Edge, Opera */
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {

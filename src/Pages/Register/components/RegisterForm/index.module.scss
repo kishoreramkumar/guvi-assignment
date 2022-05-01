@@ -1,0 +1,10 @@
+.LoginFormContainer {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .FormInputRow {
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+}

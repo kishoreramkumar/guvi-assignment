@@ -1,3 +1,3 @@
-export const getImageUrl = () => {
-  return "assets/images/";
+export const getImageUrl = (relativePath: string) => {
+  return require(`assets/images/${relativePath}`);
 };
