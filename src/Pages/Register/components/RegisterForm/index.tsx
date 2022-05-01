@@ -1,20 +1,56 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import Button from "components/Button";
 import Image from "components/Image";
 import Input from "components/Input";
 import { getImageUrl } from "utils/image.utils";
 import styles from "./index.module.scss";
 import { registerUser } from "actions";
+import { isEmailValid } from "utils/validation.utils";
+import { useNavigate } from "react-router-dom";
 
 function RegisterForm() {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const registerAction = useCallback(async () => {
-    registerUser({ email: email, password: password, name: name });
-  }, [email, password, name]);
+    setLoading(true);
+    const res = await registerUser({
+      email: email,
+      password: password,
+      name: name,
+    });
+    if (res && res?.data?.email) {
+      window.alert("Profile Added");
+      navigate("/");
+    } else {
+      window.alert(
+        res?.response?.data?.message ?? res?.message ?? "Something Went Wrong"
+      );
+    }
+    setLoading(false);
+  }, [email, password, name, navigate]);
+
+  const isValidEmail = useMemo(() => isEmailValid(email || ""), [email]);
+  const isPasswordMatch = useMemo(
+    () => password === confirmPassword,
+    [confirmPassword, password]
+  );
+
+  const isButtonDisabled = useMemo(
+    () =>
+      !email ||
+      !name ||
+      !password ||
+      !isPasswordMatch ||
+      !isValidEmail ||
+      loading,
+    [email, isPasswordMatch, isValidEmail, loading, name, password]
+  );
 
   return (
     <div className={styles.LoginFormContainer}>
@@ -49,6 +85,9 @@ function RegisterForm() {
           }}
           value={email}
         />
+        {email && !isValidEmail && (
+          <span className={styles.FormError}>Please enter a valid email</span>
+        )}
       </div>
       <div className={styles.FormInputRow}>
         <Input
@@ -71,8 +110,13 @@ function RegisterForm() {
           }}
           value={confirmPassword}
         />
+        {confirmPassword && !isPasswordMatch && (
+          <span className={styles.FormError}>Password mismatch</span>
+        )}
       </div>
-      <Button onClick={registerAction}>Login</Button>
+      <Button onClick={registerAction} disabled={isButtonDisabled}>
+        Register
+      </Button>
     </div>
   );
 }

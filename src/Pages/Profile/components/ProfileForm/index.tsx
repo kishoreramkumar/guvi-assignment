@@ -5,13 +5,14 @@ import Input from "components/Input";
 import { useEffect, useState } from "react";
 import { getImageUrl } from "utils/image.utils";
 import styles from "./index.module.scss";
-const ProfileForm = ({ userDetails }: any) => {
+const ProfileForm = ({ userDetails, loading }: any) => {
   const [name, setName] = useState(userDetails?.name ?? "");
   const [email, setEmail] = useState(userDetails?.email ?? "");
   const [age, setAge] = useState(userDetails?.age ?? "");
   const [gender, setGender] = useState(userDetails?.gender ?? "");
   const [dob, setDob] = useState(userDetails?.dov ?? "");
   const [mobile, setNumber] = useState(userDetails?.mobile ?? "");
+  const [profileLoading, setProfileLoading] = useState(false);
 
   useEffect(() => {
     const { name, email, age, gender, dob, mobile } = userDetails || {};
@@ -23,14 +24,23 @@ const ProfileForm = ({ userDetails }: any) => {
     setNumber(mobile);
   }, [userDetails]);
 
-  const updateUserProfile = () => {
-    setUserDetails({
+  const updateUserProfile = async () => {
+    setProfileLoading(true);
+    const res = await setUserDetails({
       name: name,
       age: age,
       gender: gender,
       dob: dob,
       mobile: mobile,
     });
+    if (res && res?.data?._id) {
+      window.alert("Profile Successfully Updated");
+    } else {
+      window.alert(
+        res?.response?.data?.message ?? res?.message ?? "Something Went Wrong"
+      );
+    }
+    setProfileLoading(false);
   };
 
   return (
@@ -49,6 +59,7 @@ const ProfileForm = ({ userDetails }: any) => {
                 setName(e.target.value);
               }}
               value={name}
+              disabled={loading || profileLoading}
             />
           </div>
           <div className={styles.ProfileFormItem}>
@@ -71,6 +82,7 @@ const ProfileForm = ({ userDetails }: any) => {
                 setAge(e.target.value);
               }}
               value={age}
+              disabled={loading || profileLoading}
             />
           </div>
           <div className={styles.ProfileFormItem}>
@@ -86,6 +98,7 @@ const ProfileForm = ({ userDetails }: any) => {
                 setGender(e.target.value);
               }}
               value={gender}
+              disabled={loading || profileLoading}
             />
           </div>
         </div>
@@ -99,6 +112,7 @@ const ProfileForm = ({ userDetails }: any) => {
                 setDob(e.target.value);
               }}
               value={dob}
+              disabled={loading || profileLoading}
             />
           </div>
           <div className={styles.ProfileFormItem}>
@@ -110,6 +124,7 @@ const ProfileForm = ({ userDetails }: any) => {
                 setNumber(e.target.value);
               }}
               value={mobile}
+              disabled={loading || profileLoading}
             />
           </div>
         </div>

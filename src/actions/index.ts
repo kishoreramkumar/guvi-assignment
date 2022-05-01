@@ -8,11 +8,17 @@ export const loginUser = async (userData: any) => {
 
     const { token } = res?.data || {};
     if (res.data.success && token) {
-      asyncLocalStorage.setItem("guviToken", JSON.stringify(token));
+      const tokenSetRes = await asyncLocalStorage.setItem(
+        "guviToken",
+        JSON.stringify(token)
+      );
       setAuthToken(token);
       return res;
     }
-  } catch (e) {}
+    return res;
+  } catch (e) {
+    return e;
+  }
 };
 
 export const registerUser = async (userData: any) => {
@@ -21,8 +27,10 @@ export const registerUser = async (userData: any) => {
 
     if (res?.data && res.data?._id) {
       return res;
-    }
-  } catch (e) {}
+    } else return res;
+  } catch (e) {
+    return e;
+  }
 };
 
 export const fetchUserDetail = async () => {
@@ -32,7 +40,7 @@ export const fetchUserDetail = async () => {
     if (res?.data && res.data?._id) {
       return res;
     }
-    return false;
+    return res;
   } catch (e) {
     return e;
   }
@@ -45,7 +53,7 @@ export const setUserDetails = async (userDetails: any) => {
     if (res?.data && res.data?._id) {
       return res;
     }
-    return false;
+    return res;
   } catch (e) {
     return e;
   }

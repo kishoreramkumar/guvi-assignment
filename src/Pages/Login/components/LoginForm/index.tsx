@@ -2,17 +2,39 @@ import { loginUser } from "actions";
 import Button from "components/Button";
 import Image from "components/Image";
 import Input from "components/Input";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getImageUrl } from "utils/image.utils";
+import { isEmailValid } from "utils/validation.utils";
 import styles from "./index.module.scss";
 
 function LoginForm() {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const loginAction = useCallback(async () => {
-    loginUser({ email: email, password: password });
-  }, [email, password]);
+    setLoading(true);
+    const res = await loginUser({ email: email, password: password });
+    if (res && res?.data?.token) {
+      window.alert("Successfully Logged in");
+      navigate("/profile");
+      navigate(0);
+    } else {
+      window.alert(
+        res?.response?.data?.message ?? res?.message ?? "Something Went Wrong"
+      );
+    }
+    setLoading(false);
+  }, [email, navigate, password]);
+
+  const isValidEmail = useMemo(() => isEmailValid(email || ""), [email]);
+  const isButtonDisabled = useMemo(
+    () => !email || !password || !isValidEmail || loading,
+    [email, isValidEmail, loading, password]
+  );
 
   return (
     <div className={styles.LoginFormContainer}>
@@ -36,6 +58,9 @@ function LoginForm() {
           }}
           value={email}
         />
+        {email && !isValidEmail && (
+          <span className={styles.FormError}>Please enter a valid email</span>
+        )}
       </div>
       <div className={styles.FormInputRow}>
         <Input
@@ -48,7 +73,9 @@ function LoginForm() {
           value={password}
         />
       </div>
-      <Button onClick={loginAction}>Login</Button>
+      <Button onClick={loginAction} disabled={isButtonDisabled}>
+        Login
+      </Button>
     </div>
   );
 }

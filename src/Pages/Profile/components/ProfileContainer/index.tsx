@@ -8,12 +8,19 @@ import { asyncLocalStorage } from "utils";
 
 const ProfileContainer = () => {
   const [userDetails, setUserDetail] = useState({});
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const getUserDetail = async () => {
+    setLoading(true);
     const res = await fetchUserDetail();
     if (res?.data?._id) {
       setUserDetail(res.data);
+    } else {
+      window.alert(
+        res?.response?.data?.message ?? res?.message ?? "Something Went Wrong"
+      );
     }
+    setLoading(false);
   };
   useEffect(() => {
     getUserDetail();
@@ -34,7 +41,7 @@ const ProfileContainer = () => {
       </div>
       <div className={styles.ProfileHeader}></div>
       <div className={styles.ProfileContainer}>
-        <ProfileForm userDetails={userDetails} />
+        <ProfileForm userDetails={userDetails} loading={loading} />
       </div>
     </div>
   );
