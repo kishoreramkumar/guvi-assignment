@@ -13,7 +13,7 @@ const setAuthToken = (token: string) => {
 export function BaseApi() {
   // const { token } = querystring.parse(window.location.search.substring(1));
   return axios.create({
-    baseURL: "http://localhost:5500/",
+    baseURL: "https://guvi-backend.herokuapp.com/",
   });
 }
 
