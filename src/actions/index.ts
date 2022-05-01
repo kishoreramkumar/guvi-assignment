@@ -8,11 +8,11 @@ export const loginUser = async (userData: any) => {
 
     const { token } = res?.data || {};
     if (res.data.success && token) {
+      setAuthToken(token);
       const tokenSetRes = await asyncLocalStorage.setItem(
         "guviToken",
         JSON.stringify(token)
       );
-      setAuthToken(token);
       return res;
     }
     return res;
