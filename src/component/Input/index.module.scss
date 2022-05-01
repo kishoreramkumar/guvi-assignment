@@ -1,0 +1,88 @@
+@import "../../theme/theme";
+
+$animation-duration: 0.4s;
+
+@mixin label-active() {
+  font-size: 0.75rem;
+  transform: translateY(0rem);
+}
+
+.FormField {
+  display: block;
+  width: 100%;
+
+  &.FormField_isActive {
+    .FormFieldControl {
+      &::after {
+        border-bottom: 2px solid $primary;
+        transform: scaleX(150);
+      }
+    }
+    .FormFieldLabel {
+      color: $primary;
+      @include label-active();
+    }
+  }
+  &.FormField_isFilled {
+    .FormFieldLabel {
+      @include label-active();
+    }
+  }
+}
+.FormFieldLabel {
+  display: block;
+  font-size: 0.9rem;
+  line-height: 0.9rem;
+  font-weight: normal;
+  left: 0;
+  margin: 0;
+  transition: all $animation-duration;
+  width: 100%;
+  transform: translateY(1.2rem);
+  z-index: 0;
+}
+.FormFieldControl {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  &::after {
+    border-bottom: 2px solid $primary;
+    bottom: 0;
+    content: "";
+    display: block;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    transform: scaleX(0);
+    transition: all $animation-duration;
+    width: 1%;
+  }
+}
+.FormFieldInput {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #999;
+  color: #333;
+  display: block;
+  font-size: 1.1rem;
+  outline: 0;
+  padding: 0.1rem 0.5rem 0.1rem;
+  width: 100%;
+  z-index: 1;
+  position: relative;
+  color: $primary;
+  /* Chrome, Safari, Edge, Opera */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
+}
