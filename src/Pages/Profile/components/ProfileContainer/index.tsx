@@ -24,7 +24,6 @@ const ProfileContainer = () => {
         onClick={() => {
           setAuthToken("");
           asyncLocalStorage.setItem("guviToken", "").then(() => {
-            console.log(localStorage.guviToken);
             navigate("/");
             navigate(0);
           });
