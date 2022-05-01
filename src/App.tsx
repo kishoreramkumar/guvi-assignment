@@ -1,11 +1,9 @@
 import "./App.css";
-import Login from "Pages/Login";
-import Register from "Pages/Register";
-
+import Profile from "Pages/Profile";
 function App() {
   return (
     <div className="App">
-      <Register />
+      <Profile />
     </div>
   );
 }

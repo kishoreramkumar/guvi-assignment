@@ -1,0 +1,25 @@
+.ProfileFormWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  .ProfileFormImg {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 1px solid grey;
+    overflow: hidden;
+    background-color: white;
+    margin-bottom: 1rem;
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+  .ProfileFormContainer {
+    .ProfileFormRow {
+      margin-bottom: 1rem;
+    }
+  }
+}
