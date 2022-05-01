@@ -19,7 +19,13 @@
   }
   .ProfileFormContainer {
     .ProfileFormRow {
-      margin-bottom: 1rem;
+      display: flex;
+      padding: 0.5rem 0;
+    }
+    .ProfileFormItem {
+      margin: 0 0.5rem 1rem;
+      width: 15rem;
+      max-width: 280px;
     }
   }
 }

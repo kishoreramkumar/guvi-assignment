@@ -40,18 +40,11 @@ const Dropdown = ({
           onFocus={(el) => {
             setActive(el, true);
           }}
-          style={{ color: "red" }}
         >
-          {placeHolder !== null && (
-            <option style={{ color: "red" }}>{placeHolder}</option>
-          )}
+          {placeHolder !== null && <option>{placeHolder}</option>}
           {options?.map((option: any) => {
             return (
-              <option
-                style={{ color: "red" }}
-                key={option.value}
-                value={option.value}
-              >
+              <option key={option.value} value={option.value}>
                 {option.name}
               </option>
             );

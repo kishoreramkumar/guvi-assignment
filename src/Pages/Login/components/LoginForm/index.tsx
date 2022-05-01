@@ -1,10 +1,19 @@
+import { loginUser } from "actions";
 import Button from "components/Button";
 import Image from "components/Image";
 import Input from "components/Input";
+import { useCallback, useState } from "react";
 import { getImageUrl } from "utils/image.utils";
 import styles from "./index.module.scss";
 
 function LoginForm() {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
+  const loginAction = useCallback(async () => {
+    loginUser({ email: email, password: password });
+  }, [email, password]);
+
   return (
     <div className={styles.LoginFormContainer}>
       <Image
@@ -22,8 +31,10 @@ function LoginForm() {
           label="Email"
           placeHolder="ex. abc.def@xyz.com"
           type="email"
-          onChange={(e: any) => {}}
-          value={""}
+          onChange={(e: any) => {
+            setEmail(e.target.value);
+          }}
+          value={email}
         />
       </div>
       <div className={styles.FormInputRow}>
@@ -31,11 +42,13 @@ function LoginForm() {
           label="Password"
           placeHolder=""
           type="password"
-          onChange={(e: any) => {}}
-          value={""}
+          onChange={(e: any) => {
+            setPassword(e.target.value);
+          }}
+          value={password}
         />
       </div>
-      <Button>Login</Button>
+      <Button onClick={loginAction}>Login</Button>
     </div>
   );
 }

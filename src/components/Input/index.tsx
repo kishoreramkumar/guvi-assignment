@@ -32,7 +32,9 @@ const Input = ({
         <label className={styles.FormFieldLabel}>{label}</label>
         <input
           type={type}
-          className={styles.FormFieldInput}
+          className={`${styles.FormFieldInput} ${
+            classValue ? "" : styles.FormFieldInputTransparent
+          }`}
           value={value}
           onChange={onChange}
           onBlur={(el) => {

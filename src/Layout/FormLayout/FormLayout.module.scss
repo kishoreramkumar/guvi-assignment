@@ -3,6 +3,7 @@
   width: 100%;
   margin: 0 auto;
   display: flex;
+  height: 100%;
   .LeftContainer,
   .RightContainer {
     display: flex;
@@ -12,6 +13,9 @@
     width: 50%;
   }
   .LeftContainer {
+    border-right: 1px solid lightgray;
+    height: fit-content;
+    margin: auto;
     img {
       width: 100%;
     }

@@ -16,7 +16,7 @@ $animation-duration: 0.4s;
   &.FormField_isActive {
     .FormFieldControl {
       &::after {
-        border: 1px solid $primary;
+        border: 2px solid $primary;
         transform: scaleX(150);
       }
       .FormFieldInput {
@@ -55,7 +55,7 @@ $animation-duration: 0.4s;
   width: 100%;
 
   &::after {
-    border-bottom: 2px solid $primary;
+    border-bottom: 2px solid transparent;
     border-radius: 4px;
     bottom: 0;
     content: "";
