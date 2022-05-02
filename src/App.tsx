@@ -13,7 +13,7 @@ import Profile from "Pages/Profile";
 function App() {
   useEffect(() => {
     if (localStorage.guviToken) {
-      const token = JSON.parse(localStorage.guviToken);
+      const token = localStorage.guviToken;
       setAuthToken(token);
     }
   }, []);

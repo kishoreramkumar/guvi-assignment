@@ -4,15 +4,16 @@ import setAuthToken, { BaseApi } from "./action.utils";
 
 export const loginUser = async (userData: any) => {
   try {
-    const res: any = await BaseApi().post("user_auth/login", userData);
+    const res: any = await BaseApi().post("user_auth/login", userData, {
+      headers: {
+        Authorization: localStorage.guviToken,
+      },
+    });
 
     const { token } = res?.data || {};
     if (res.data.success && token) {
       setAuthToken(token);
-      const tokenSetRes = await asyncLocalStorage.setItem(
-        "guviToken",
-        JSON.stringify(token)
-      );
+      const tokenSetRes = await asyncLocalStorage.setItem("guviToken", token);
       return res;
     }
     return res;
@@ -23,7 +24,11 @@ export const loginUser = async (userData: any) => {
 
 export const registerUser = async (userData: any) => {
   try {
-    const res: any = await BaseApi().post("user_auth/register", userData);
+    const res: any = await BaseApi().post("user_auth/register", userData, {
+      headers: {
+        Authorization: localStorage.guviToken,
+      },
+    });
 
     if (res?.data && res.data?._id) {
       return res;
@@ -35,7 +40,11 @@ export const registerUser = async (userData: any) => {
 
 export const fetchUserDetail = async () => {
   try {
-    const res: any = await BaseApi().get("user/getDetails");
+    const res: any = await BaseApi().get("user/getDetails", {
+      headers: {
+        Authorization: localStorage.guviToken,
+      },
+    });
 
     if (res?.data && res.data?._id) {
       return res;
@@ -48,7 +57,11 @@ export const fetchUserDetail = async () => {
 
 export const setUserDetails = async (userDetails: any) => {
   try {
-    const res: any = await BaseApi().post("user/updateProfile", userDetails);
+    const res: any = await BaseApi().post("user/updateProfile", userDetails, {
+      headers: {
+        Authorization: localStorage.guviToken,
+      },
+    });
 
     if (res?.data && res.data?._id) {
       return res;

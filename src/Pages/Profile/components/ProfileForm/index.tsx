@@ -111,7 +111,7 @@ const ProfileForm = ({ userDetails, loading }: any) => {
               onChange={(e: any) => {
                 setDob(e.target.value);
               }}
-              value={dob}
+              value={dob?.slice(0, 10)}
               disabled={loading || profileLoading}
             />
           </div>
