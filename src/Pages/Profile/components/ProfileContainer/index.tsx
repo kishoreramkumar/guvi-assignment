@@ -5,20 +5,26 @@ import ProfileForm from "../ProfileForm";
 import styles from "./index.module.scss";
 import { useNavigate } from "react-router-dom";
 import { asyncLocalStorage } from "utils";
+import { useStoreContext } from "components/StoreContext";
 
 const ProfileContainer = () => {
   const [userDetails, setUserDetail] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { pushNotification } = useStoreContext();
   const getUserDetail = async () => {
     setLoading(true);
     const res = await fetchUserDetail();
     if (res?.data?._id) {
       setUserDetail(res.data);
     } else {
-      window.alert(
-        res?.response?.data?.message ?? res?.message ?? "Something Went Wrong"
-      );
+      pushNotification({
+        title:
+          res?.response?.data?.message ??
+          res?.message ??
+          "Something Went Wrong",
+        type: "Error",
+      });
     }
     setLoading(false);
   };

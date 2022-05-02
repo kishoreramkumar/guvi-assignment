@@ -1,6 +1,3 @@
-import Button from "components/Button";
-import Image from "components/Image";
-import Input from "../../components/Input";
 import FormLayout from "../../Layout/FormLayout/FormLayout";
 import { getImageUrl } from "../../utils/image.utils";
 import LoginForm from "./components/LoginForm";

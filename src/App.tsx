@@ -10,6 +10,8 @@ import setAuthToken from "actions/action.utils";
 import Login from "Pages/Login";
 import Register from "Pages/Register";
 import Profile from "Pages/Profile";
+import { useStoreContext } from "components/StoreContext";
+import Notifications from "components/Notifications";
 function App() {
   useEffect(() => {
     if (localStorage.guviToken) {
@@ -17,6 +19,8 @@ function App() {
       setAuthToken(token);
     }
   }, []);
+
+  const { notificationList } = useStoreContext();
 
   return (
     <Router>
@@ -50,6 +54,9 @@ function App() {
             <Route path="*" element={<Navigate to="/" />}></Route>
           </>
         </Routes>
+        {notificationList && !!notificationList.length && (
+          <Notifications notificationList={notificationList} />
+        )}
       </div>
     </Router>
   );

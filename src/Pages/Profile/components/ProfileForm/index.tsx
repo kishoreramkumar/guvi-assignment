@@ -2,6 +2,7 @@ import { setUserDetails } from "actions";
 import Button from "components/Button";
 import Dropdown from "components/Dropdown";
 import Input from "components/Input";
+import { useStoreContext } from "components/StoreContext";
 import { useEffect, useState } from "react";
 import { getImageUrl } from "utils/image.utils";
 import styles from "./index.module.scss";
@@ -63,6 +64,7 @@ const ProfileForm = ({ userDetails, loading }: any) => {
     setNumber(mobile);
   }, [userDetails]);
 
+  const { pushNotification } = useStoreContext();
   const updateUserProfile = async () => {
     setProfileLoading(true);
     const res = await setUserDetails({
@@ -73,11 +75,22 @@ const ProfileForm = ({ userDetails, loading }: any) => {
       mobile: mobile,
     });
     if (res && res?.data?._id) {
-      window.alert("Profile Successfully Updated");
+      // window.alert();
+      pushNotification({
+        title: "Profile Successfully Updated",
+        type: "Success",
+      });
     } else {
-      window.alert(
-        res?.response?.data?.message ?? res?.message ?? "Something Went Wrong"
-      );
+      // window.alert(
+      //   res?.response?.data?.message ?? res?.message ?? "Something Went Wrong"
+      // );
+      pushNotification({
+        title:
+          res?.response?.data?.message ??
+          res?.message ??
+          "Something Went Wrong",
+        type: "Error",
+      });
     }
     setProfileLoading(false);
   };

@@ -1,0 +1,19 @@
+.NotificationsWrapper {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  .Notification {
+    padding: 0.5rem;
+    border-radius: 5px;
+    width: 250px;
+    color: white;
+    font-weight: 500;
+    text-align: left;
+    &.Success {
+      background-color: green;
+    }
+    &.Error {
+      background-color: red;
+    }
+  }
+}

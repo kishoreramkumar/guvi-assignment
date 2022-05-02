@@ -2,6 +2,7 @@ import { loginUser } from "actions";
 import Button from "components/Button";
 import Image from "components/Image";
 import Input from "components/Input";
+import { useStoreContext } from "components/StoreContext";
 import { useCallback, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getImageUrl } from "utils/image.utils";
@@ -13,22 +14,32 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const { pushNotification } = useStoreContext();
   const navigate = useNavigate();
 
   const loginAction = useCallback(async () => {
     setLoading(true);
     const res = await loginUser({ email: email, password: password });
     if (res && res?.data?.token) {
-      window.alert("Successfully Logged in");
+      // window.alert("Successfully Logged in");
+      pushNotification({ title: "Successfully Logged in", type: "Success" });
       navigate("/profile");
       navigate(0);
     } else {
-      window.alert(
-        res?.response?.data?.message ?? res?.message ?? "Something Went Wrong"
-      );
+      // window.alert(
+      //   res?.response?.data?.message ?? res?.message ?? "Something Went Wrong"
+      // );
+
+      pushNotification({
+        title:
+          res?.response?.data?.message ??
+          res?.message ??
+          "Something Went Wrong",
+        type: "Error",
+      });
     }
     setLoading(false);
-  }, [email, navigate, password]);
+  }, [email, navigate, password, pushNotification]);
 
   const isValidEmail = useMemo(() => isEmailValid(email || ""), [email]);
   const isButtonDisabled = useMemo(

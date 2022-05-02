@@ -7,6 +7,7 @@ import styles from "./index.module.scss";
 import { registerUser } from "actions";
 import { isEmailValid } from "utils/validation.utils";
 import { Link, useNavigate } from "react-router-dom";
+import { useStoreContext } from "components/StoreContext";
 
 function RegisterForm() {
   const [name, setName] = useState();
@@ -17,6 +18,7 @@ function RegisterForm() {
 
   const navigate = useNavigate();
 
+  const { pushNotification } = useStoreContext();
   const registerAction = useCallback(async () => {
     setLoading(true);
     const res = await registerUser({
@@ -25,15 +27,26 @@ function RegisterForm() {
       name: name,
     });
     if (res && res?.data?.email) {
-      window.alert("Profile Added");
+      // window.alert("Profile Added");
+      pushNotification({
+        title: "Profile Added",
+        type: "Success",
+      });
       navigate("/");
     } else {
-      window.alert(
-        res?.response?.data?.message ?? res?.message ?? "Something Went Wrong"
-      );
+      // window.alert(
+      //   res?.response?.data?.message ?? res?.message ?? "Something Went Wrong"
+      // );
+      pushNotification({
+        title:
+          res?.response?.data?.message ??
+          res?.message ??
+          "Something Went Wrong",
+        type: "Error",
+      });
     }
     setLoading(false);
-  }, [email, password, name, navigate]);
+  }, [email, password, name, pushNotification, navigate]);
 
   const isValidEmail = useMemo(() => isEmailValid(email || ""), [email]);
   const isPasswordMatch = useMemo(
