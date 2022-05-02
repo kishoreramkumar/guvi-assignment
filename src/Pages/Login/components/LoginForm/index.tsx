@@ -3,7 +3,7 @@ import Button from "components/Button";
 import Image from "components/Image";
 import Input from "components/Input";
 import { useCallback, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getImageUrl } from "utils/image.utils";
 import { isEmailValid } from "utils/validation.utils";
 import styles from "./index.module.scss";
@@ -76,6 +76,9 @@ function LoginForm() {
       <Button onClick={loginAction} disabled={isButtonDisabled}>
         Login
       </Button>
+      <div style={{ paddingTop: "1rem" }}>
+        Don't have account? <Link to="/register">Register</Link>
+      </div>
     </div>
   );
 }

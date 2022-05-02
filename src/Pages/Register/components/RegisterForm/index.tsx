@@ -6,7 +6,7 @@ import { getImageUrl } from "utils/image.utils";
 import styles from "./index.module.scss";
 import { registerUser } from "actions";
 import { isEmailValid } from "utils/validation.utils";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function RegisterForm() {
   const [name, setName] = useState();
@@ -117,6 +117,9 @@ function RegisterForm() {
       <Button onClick={registerAction} disabled={isButtonDisabled}>
         Register
       </Button>
+      <div style={{ paddingTop: "1rem" }}>
+        Already have account? <Link to="/">Sign in</Link>
+      </div>
     </div>
   );
 }
