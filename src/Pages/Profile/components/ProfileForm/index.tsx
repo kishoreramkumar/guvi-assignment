@@ -5,6 +5,45 @@ import Input from "components/Input";
 import { useEffect, useState } from "react";
 import { getImageUrl } from "utils/image.utils";
 import styles from "./index.module.scss";
+
+const ProfileSkeleton = () => {
+  return (
+    <>
+      {[0, 1, 2].map((_k) => {
+        return (
+          <div key={_k} className={styles.ProfileFormRow}>
+            <div className={styles.ProfileFormItem}>
+              <div
+                style={{
+                  width: "100%",
+                  height: "2.4rem",
+                  overflow: "hidden",
+                  marginTop: " 0.8rem",
+                  background: "rgb(222 239 234)",
+                }}
+              >
+                <div></div>
+              </div>
+            </div>
+            <div className={styles.ProfileFormItem}>
+              <div
+                style={{
+                  width: "100%",
+                  height: "2.4rem",
+                  overflow: "hidden",
+                  marginTop: " 0.8rem",
+                  background: "rgb(222 239 234)",
+                }}
+              >
+                <div></div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </>
+  );
+};
 const ProfileForm = ({ userDetails, loading }: any) => {
   const [name, setName] = useState(userDetails?.name ?? "");
   const [email, setEmail] = useState(userDetails?.email ?? "");
@@ -49,85 +88,91 @@ const ProfileForm = ({ userDetails, loading }: any) => {
         <img src={getImageUrl("defaultProfile.gif")} alt="profile"></img>
       </div>
       <div className={styles.ProfileFormContainer}>
-        <div className={styles.ProfileFormRow}>
-          <div className={styles.ProfileFormItem}>
-            <Input
-              label="Name"
-              placeHolder=""
-              type="text"
-              onChange={(e: any) => {
-                setName(e.target.value);
-              }}
-              value={name}
-              disabled={loading || profileLoading}
-            />
-          </div>
-          <div className={styles.ProfileFormItem}>
-            <Input
-              label="Email"
-              placeHolder=""
-              type="email"
-              value={email}
-              disabled={true}
-            />
-          </div>
-        </div>
-        <div className={styles.ProfileFormRow}>
-          <div className={styles.ProfileFormItem}>
-            <Input
-              label="Age"
-              placeHolder=""
-              type="number"
-              onChange={(e: any) => {
-                setAge(e.target.value);
-              }}
-              value={age}
-              disabled={loading || profileLoading}
-            />
-          </div>
-          <div className={styles.ProfileFormItem}>
-            <Dropdown
-              label="Gender"
-              placeHolder=""
-              options={[
-                { name: "Male", value: "male" },
-                { name: "Female", value: "female" },
-                { name: "Others", value: "others" },
-              ]}
-              onChange={(e: any) => {
-                setGender(e.target.value);
-              }}
-              value={gender}
-              disabled={loading || profileLoading}
-            />
-          </div>
-        </div>
-        <div className={styles.ProfileFormRow}>
-          <div className={styles.ProfileFormItem}>
-            <Input
-              label="DOB"
-              placeHolder="Date"
-              type="date"
-              onChange={(e: any) => {
-                setDob(e.target.value);
-              }}
-              value={dob?.slice(0, 10)}
-              disabled={loading || profileLoading}
-            />
-          </div>
-          <div className={styles.ProfileFormItem}>
-            <Input
-              label="Mobile"
-              placeHolder=""
-              type="number"
-              onChange={(e: any) => {
-                setNumber(e.target.value);
-              }}
-              value={mobile}
-              disabled={loading || profileLoading}
-            />
-          </div>
-        </div>
+        {loading ? (
+          <ProfileSkeleton />
+        ) : (
+          <>
+            <div className={styles.ProfileFormRow}>
+              <div className={styles.ProfileFormItem}>
+                <Input
+                  label="Name"
+                  placeHolder=""
+                  type="text"
+                  onChange={(e: any) => {
+                    setName(e.target.value);
+                  }}
+                  value={name}
+                  disabled={loading || profileLoading}
+                />
+              </div>
+              <div className={styles.ProfileFormItem}>
+                <Input
+                  label="Email"
+                  placeHolder=""
+                  type="email"
+                  value={email}
+                  disabled={true}
+                />
+              </div>
+            </div>
+            <div className={styles.ProfileFormRow}>
+              <div className={styles.ProfileFormItem}>
+                <Input
+                  label="Age"
+                  placeHolder=""
+                  type="number"
+                  onChange={(e: any) => {
+                    setAge(e.target.value);
+                  }}
+                  value={age}
+                  disabled={loading || profileLoading}
+                />
+              </div>
+              <div className={styles.ProfileFormItem}>
+                <Dropdown
+                  label="Gender"
+                  placeHolder=""
+                  options={[
+                    { name: "Male", value: "male" },
+                    { name: "Female", value: "female" },
+                    { name: "Others", value: "others" },
+                  ]}
+                  onChange={(e: any) => {
+                    setGender(e.target.value);
+                  }}
+                  value={gender}
+                  disabled={loading || profileLoading}
+                />
+              </div>
+            </div>
+            <div className={styles.ProfileFormRow}>
+              <div className={styles.ProfileFormItem}>
+                <Input
+                  label="DOB"
+                  placeHolder="Date"
+                  type="date"
+                  onChange={(e: any) => {
+                    setDob(e.target.value);
+                  }}
+                  value={dob?.slice(0, 10)}
+                  disabled={loading || profileLoading}
+                />
+              </div>
+              <div className={styles.ProfileFormItem}>
+                <Input
+                  label="Mobile"
+                  placeHolder=""
+                  type="number"
+                  onChange={(e: any) => {
+                    setNumber(e.target.value);
+                  }}
+                  value={mobile}
+                  disabled={loading || profileLoading}
+                />
+              </div>
+            </div>
+          </>
+        )}
       </div>
       <div>
         <Button
