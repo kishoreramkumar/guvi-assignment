@@ -10,7 +10,7 @@ function Register() {
 
   return (
     <FormLayout img={imageUrl} srcSet={imgSrcSet}>
-      <RegisterForm />
+      <RegisterForm imageUrl={imageUrl} imgSrcSet={imgSrcSet} />
     </FormLayout>
   );
 }

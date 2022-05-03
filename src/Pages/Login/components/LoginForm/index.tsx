@@ -9,7 +9,7 @@ import { getImageUrl } from "utils/image.utils";
 import { isEmailValid } from "utils/validation.utils";
 import styles from "./index.module.scss";
 
-function LoginForm() {
+function LoginForm({ imageUrl, imgSrcSet }: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -59,6 +59,12 @@ function LoginForm() {
         ]}
         alt="logo"
       />
+      <Image
+        className={styles.LoginFormBanner}
+        src={imageUrl}
+        srcSet={imgSrcSet}
+        alt="login"
+      ></Image>
       <div className={styles.FormInputRow}>
         <Input
           label="Email"

@@ -7,7 +7,7 @@ function Image({ src, srcSet, className, style, alt }: any) {
             <source key={index} type={srcImg?.type} srcSet={srcImg?.src} />
           );
         })}
-      <img src={src} alt={alt} />
+      <img style={{ width: "100%", height: "100%" }} src={src} alt={alt} />
     </picture>
   );
 }

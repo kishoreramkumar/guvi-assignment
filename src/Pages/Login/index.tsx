@@ -10,7 +10,7 @@ function Login() {
 
   return (
     <FormLayout img={imageUrl} srcSet={imgSrcSet}>
-      <LoginForm />
+      <LoginForm imageUrl={imageUrl} imgSrcSet={imgSrcSet} />
     </FormLayout>
   );
 }

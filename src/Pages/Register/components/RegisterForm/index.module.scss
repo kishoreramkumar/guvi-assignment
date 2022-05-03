@@ -1,8 +1,11 @@
-.LoginFormContainer {
+.RegisterFormContainer {
   width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding-bottom: 1rem;
   .FormInputRow {
     margin-bottom: 1rem;
     width: 100%;
@@ -11,5 +14,13 @@
     color: red;
     font-size: 0.8rem;
     text-align: left;
+  }
+  .RegisterFormBanner {
+    display: none;
+    @media screen and (max-width: 768px) {
+      width: 100%;
+      max-width: 300px;
+      display: unset;
+    }
   }
 }

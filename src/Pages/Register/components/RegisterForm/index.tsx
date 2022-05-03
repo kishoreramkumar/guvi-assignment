@@ -9,7 +9,7 @@ import { isEmailValid } from "utils/validation.utils";
 import { Link, useNavigate } from "react-router-dom";
 import { useStoreContext } from "components/StoreContext";
 
-function RegisterForm() {
+function RegisterForm({ imageUrl, imgSrcSet }: any) {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -66,7 +66,7 @@ function RegisterForm() {
   );
 
   return (
-    <div className={styles.LoginFormContainer}>
+    <div className={styles.RegisterFormContainer}>
       <Image
         src={getImageUrl("png/guvi-logo-full.png")}
         srcSet={[
@@ -77,6 +77,12 @@ function RegisterForm() {
         ]}
         alt="logo"
       />
+      <Image
+        className={styles.RegisterFormBanner}
+        src={imageUrl}
+        srcSet={imgSrcSet}
+        alt="register"
+      ></Image>
       <div className={styles.FormInputRow}>
         <Input
           label="Name"

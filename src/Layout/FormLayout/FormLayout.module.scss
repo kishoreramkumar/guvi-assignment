@@ -20,6 +20,12 @@
       width: 100%;
     }
   }
-  .RightContainer {
+  @media screen and (max-width: 768px) {
+    .LeftContainer {
+      display: none;
+    }
+    .RightContainer {
+      width: 100%;
+    }
   }
 }

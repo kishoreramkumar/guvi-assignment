@@ -20,12 +20,16 @@
   .ProfileFormContainer {
     .ProfileFormRow {
       display: flex;
-      padding: 0.5rem 0;
     }
     .ProfileFormItem {
-      margin: 0 0.5rem 1rem;
+      margin: 0.5rem 0.5rem 1rem;
       width: 15rem;
       max-width: 280px;
+    }
+    @media screen and (max-width: 768px) {
+      .ProfileFormRow {
+        flex-direction: column;
+      }
     }
   }
 }
